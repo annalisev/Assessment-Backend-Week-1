@@ -13,9 +13,7 @@ days_api/test_date_functions.py .........................                [100%]
 days_api/app.py:43:8: W0702: No exception type(s) specified (bare-except)
 days_api/app.py:58:8: W0702: No exception type(s) specified (bare-except)
 days_api/app.py:67:4: W0603: Using the global statement (global-statement)
-************* Module date_functions
-days_api/date_functions.py:14:8: W0707: Consider explicitly re-raising using 'except ValueError as exc' and 'raise ValueError('Unable to convert value to datetime.') from exc' (raise-missing-from)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.82/10 (previous run: 9.82/10, +0.00)
+Your code has been rated at 9.87/10 (previous run: 9.87/10, +0.00)
 
