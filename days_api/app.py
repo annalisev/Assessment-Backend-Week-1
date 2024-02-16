@@ -28,5 +28,13 @@ def index():
     return jsonify({ "message": "Welcome to the Days API." })
 
 
+@app.route("/between", methods =["POST"])
+def get_between():
+    """Returns an API welcome messsage."""
+    first = convert_to_datetime(request.json["first"])
+    last = convert_to_datetime(request.json["last"])
+    return jsonify({ "days": get_days_between(first, last)}), 200
+
+
 if __name__ == "__main__":
     app.run(port=8080, debug=True)
