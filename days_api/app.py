@@ -31,7 +31,7 @@ def index():
 
 
 @app.route("/between", methods =["POST"])
-def get_between():
+def between():
     """Returns the number of days between two dates"""
     if request.method == "POST":
         add_to_history(request)
@@ -46,7 +46,7 @@ def get_between():
 
 
 @app.route("/weekday", methods =["POST"])
-def get_weekday():
+def weekday():
     """Returns the day of the week a specific date is"""
     if request.method == "POST":
         add_to_history(request)
@@ -73,9 +73,10 @@ def history():
             limit = int(limit)
             if limit < 1 or limit > 20:
                 return jsonify({"error": "Number must be an integer between 1 and 20."}), 400
-        num = min([limit, len(app_history)])
+        total = len(app_history)
+        num = min([limit, total])
         return_arr =[]
-        for i in range(num):
+        for i in range(total-1, total-num-1, -1):
             return_arr.append(app_history[i])
         return jsonify(return_arr), 200
     if request.method == "DELETE":
