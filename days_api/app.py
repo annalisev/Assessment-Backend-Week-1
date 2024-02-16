@@ -33,30 +33,34 @@ def index():
 @app.route("/between", methods =["POST"])
 def get_between():
     """Returns the number of days between two dates"""
-    add_to_history(request)
-    try:
-        first = convert_to_datetime(request.json["first"])
-        last = convert_to_datetime(request.json["last"])
-    except:
-        return jsonify({'error': True,
-                        'message': 'Could not convert to datetime, check format.'}), 400
-    return jsonify({ "days": get_days_between(first, last)}), 200
+    if request.method == "POST":
+        add_to_history(request)
+        if "first" not in request.json or "last" not in request.json:
+            return jsonify({"error": "Missing required data."}), 400
+        try:
+            first = convert_to_datetime(request.json["first"])
+            last = convert_to_datetime(request.json["last"])
+        except:
+            return jsonify({'error': 'Unable to convert value to datetime.'}), 400
+        return jsonify({ "days": get_days_between(first, last)}), 200
 
 
 @app.route("/weekday", methods =["POST"])
 def get_weekday():
     """Returns the day of the week a specific date is"""
-    add_to_history(request)
-    try:
-        first = convert_to_datetime(request.json["date"])
-    except:
-        return jsonify({'error': True,
-                        'message': 'Could not convert to datetime, check format.'}), 400
-    return jsonify({ "weekday": get_day_of_week_on(first)}), 200
+    if request.method == "POST":
+        add_to_history(request)
+        if "date" not in request.json:
+            return jsonify({"error": "Missing required data."}), 400
+        try:
+            first = convert_to_datetime(request.json["date"])
+        except:
+            return jsonify({'error': 'Unable to convert value to datetime.'}), 400
+        return jsonify({ "weekday": get_day_of_week_on(first)}), 200
 
 
 @app.route("/history", methods =["GET", "DELETE"])
-def get_or_delete_history():
+def history():
     """Returns details on the last number of requests to the API"""
     global app_history
     add_to_history(request)
@@ -65,12 +69,10 @@ def get_or_delete_history():
         if "number" in request.args:
             limit = request.args["number"]
             if not limit.isdigit():
-                return jsonify({'error': True,
-                            'message': 'number is not an integer'}), 400
+                return jsonify({"error": "Number must be an integer between 1 and 20."}), 400
             limit = int(limit)
             if limit < 1 or limit > 20:
-                return jsonify({'error': True,
-                            'message': 'number must be between 1 and 20'}), 400
+                return jsonify({"error": "Number must be an integer between 1 and 20."}), 400
         num = min([limit, len(app_history)])
         return_arr =[]
         for i in range(num):
