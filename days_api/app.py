@@ -25,12 +25,14 @@ def add_to_history(current_request):
 @app.get("/")
 def index():
     """Returns an API welcome message."""
+    add_to_history(request)
     return jsonify({ "message": "Welcome to the Days API." })
 
 
 @app.route("/between", methods =["POST"])
 def get_between():
     """Returns the number of days between two dates"""
+    add_to_history(request)
     try:
         first = convert_to_datetime(request.json["first"])
         last = convert_to_datetime(request.json["last"])
@@ -43,6 +45,28 @@ def get_between():
 @app.route("/weekday", methods =["POST"])
 def get_weekday():
     """Returns the day of the week a specific date is"""
+    add_to_history(request)
+    try:
+        first = convert_to_datetime(request.json["date"])
+    except:
+        return jsonify({'error': True,
+                        'message': 'Could not convert to datetime, check format.'}), 400
+    return jsonify({ "weekday": get_day_of_week_on(first)}), 200
+
+
+@app.route("/history", methods =["GET", "POST"])
+def get_or_delete_history():
+    """Returns details on the last number of requests to the API"""
+    if request.method == "GET":
+        num = int(request.args["number"]) if "number" in request.args else 5
+        return_arr =[]
+        for i in range(num):
+            return_arr.append(app_history[i])
+        return jsonify(return_arr), 200
+
+
+
+
     try:
         first = convert_to_datetime(request.json["date"])
     except:
