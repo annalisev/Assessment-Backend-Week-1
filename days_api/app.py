@@ -4,7 +4,7 @@
 
 from datetime import datetime
 
-from flask import Flask, Response, request, jsonify
+from flask import Flask, request, jsonify
 
 from date_functions import convert_to_datetime, get_day_of_week_on, get_days_between
 
@@ -43,6 +43,7 @@ def between():
         except:
             return jsonify({'error': 'Unable to convert value to datetime.'}), 400
         return jsonify({ "days": get_days_between(first, last)}), 200
+    return None
 
 
 @app.route("/weekday", methods =["POST"])
@@ -57,6 +58,7 @@ def weekday():
         except:
             return jsonify({'error': 'Unable to convert value to datetime.'}), 400
         return jsonify({ "weekday": get_day_of_week_on(first)}), 200
+    return None
 
 
 @app.route("/history", methods =["GET", "DELETE"])
@@ -82,6 +84,7 @@ def history():
     if request.method == "DELETE":
         app_history = []
         return jsonify({ "status": "History cleared" }), 200
+    return None
 
 
 if __name__ == "__main__":
