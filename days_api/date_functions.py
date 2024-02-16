@@ -7,8 +7,12 @@ def convert_to_datetime(date: str) -> datetime:
     '''returns date in a datetime object'''
     if not isinstance(date, str):
         raise TypeError('Input is not string')
-    return (datetime.strptime(
+    try:
+        return (datetime.strptime(
                 date, '%d.%m.%Y'))
+    except(ValueError):
+        raise ValueError("Unable to convert value to datetime.")
+    
 
 
 def get_days_between(first: datetime, last: datetime) -> int:
