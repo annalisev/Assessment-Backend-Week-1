@@ -5,10 +5,10 @@ rootdir: /home/runner/work/Assessment-Backend-Week-1/Assessment-Backend-Week-1
 collected 85 items
 
 days_api/test_api.py ................................................... [ 60%]
-.....FFF.                                                                [ 70%]
+.........                                                                [ 70%]
 days_api/test_date_functions.py .........................                [100%]
 
-========================= 3 failed, 82 passed in 0.22s =========================
+============================== 85 passed in 0.21s ==============================
 ************* Module app
 days_api/app.py:43:8: W0702: No exception type(s) specified (bare-except)
 days_api/app.py:34:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
