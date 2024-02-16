@@ -24,14 +24,14 @@ def add_to_history(current_request: list) -> None:
 
 
 @app.get("/")
-def index() -> dict:
+def index() -> list:
     """Returns an API welcome message."""
     add_to_history(request)
     return jsonify({ "message": "Welcome to the Days API." })
 
 
 @app.route("/between", methods =["POST"])
-def between() -> dict:
+def between() -> list:
     """Returns the number of days between two dates"""
     if request.method == "POST":
         add_to_history(request)
@@ -51,7 +51,7 @@ def between() -> dict:
 
 
 @app.route("/weekday", methods =["POST"])
-def weekday() -> dict:
+def weekday() -> list:
     """Returns the day of the week a specific date is"""
     if request.method == "POST":
         add_to_history(request)
@@ -96,3 +96,4 @@ def history() -> dict:
 
 if __name__ == "__main__":
     app.run(port=8080, debug=True)
+    print(7)
