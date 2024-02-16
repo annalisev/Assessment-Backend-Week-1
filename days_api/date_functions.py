@@ -19,4 +19,7 @@ def get_days_between(first: datetime, last: datetime) -> int:
 
 
 def get_day_of_week_on(date: datetime) -> str:
-    pass
+    '''returns the day of the week of a given datetime'''
+    if not isinstance(date, datetime):
+        raise TypeError('Datetime required.')
+    return date.strftime('%A')
