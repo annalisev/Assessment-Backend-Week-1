@@ -11,15 +11,11 @@ days_api/test_date_functions.py .........................                [100%]
 ============================== 85 passed in 0.21s ==============================
 ************* Module app
 days_api/app.py:43:8: W0702: No exception type(s) specified (bare-except)
-days_api/app.py:34:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
-days_api/app.py:57:8: W0702: No exception type(s) specified (bare-except)
-days_api/app.py:49:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
-days_api/app.py:65:4: W0603: Using the global statement (global-statement)
-days_api/app.py:63:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
-days_api/app.py:7:0: W0611: Unused Response imported from flask (unused-import)
+days_api/app.py:58:8: W0702: No exception type(s) specified (bare-except)
+days_api/app.py:67:4: W0603: Using the global statement (global-statement)
 ************* Module date_functions
 days_api/date_functions.py:14:8: W0707: Consider explicitly re-raising using 'except ValueError as exc' and 'raise ValueError('Unable to convert value to datetime.') from exc' (raise-missing-from)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.64/10 (previous run: 9.64/10, +0.00)
+Your code has been rated at 9.82/10 (previous run: 9.82/10, +0.00)
 
