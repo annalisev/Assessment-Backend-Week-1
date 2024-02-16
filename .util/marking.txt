@@ -10,8 +10,9 @@ days_api/test_date_functions.py .........................                [100%]
 
 ============================== 85 passed in 0.21s ==============================
 ************* Module app
+days_api/app.py:99:0: C0304: Final newline missing (missing-final-newline)
 days_api/app.py:74:4: W0603: Using the global statement (global-statement)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.96/10 (previous run: 9.96/10, +0.00)
+Your code has been rated at 9.91/10 (previous run: 9.91/10, +0.00)
 
