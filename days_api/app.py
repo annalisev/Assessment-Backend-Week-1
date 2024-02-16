@@ -14,7 +14,7 @@ app = Flask(__name__)
 app_history = []
 print(app_history )
 
-def add_to_history(current_request):
+def add_to_history(current_request: list) -> None:
     """Adds a route to the app history."""
     app_history.append({
         "method": current_request.method,
@@ -24,45 +24,52 @@ def add_to_history(current_request):
 
 
 @app.get("/")
-def index():
+def index() -> dict:
     """Returns an API welcome message."""
     add_to_history(request)
     return jsonify({ "message": "Welcome to the Days API." })
 
 
 @app.route("/between", methods =["POST"])
-def between():
+def between() -> dict:
     """Returns the number of days between two dates"""
     if request.method == "POST":
         add_to_history(request)
         if "first" not in request.json or "last" not in request.json:
             return jsonify({"error": "Missing required data."}), 400
+        first = request.json["first"]
+        last = request.json["last"]
+        if not isinstance(first, str) or not isinstance(first, str):
+            return jsonify({'error': 'Unable to convert value to datetime.'}), 400
         try:
-            first = convert_to_datetime(request.json["first"])
-            last = convert_to_datetime(request.json["last"])
-        except:
+            first = convert_to_datetime(first)
+            last = convert_to_datetime(last)
+        except ValueError:
             return jsonify({'error': 'Unable to convert value to datetime.'}), 400
         return jsonify({ "days": get_days_between(first, last)}), 200
     return None
 
 
 @app.route("/weekday", methods =["POST"])
-def weekday():
+def weekday() -> dict:
     """Returns the day of the week a specific date is"""
     if request.method == "POST":
         add_to_history(request)
         if "date" not in request.json:
             return jsonify({"error": "Missing required data."}), 400
+        data = request.json["date"]
+        if not isinstance(data, str):
+            return jsonify({'error': 'Unable to convert value to datetime.'}), 400
         try:
-            first = convert_to_datetime(request.json["date"])
-        except:
+            first = convert_to_datetime(data)
+        except ValueError:
             return jsonify({'error': 'Unable to convert value to datetime.'}), 400
         return jsonify({ "weekday": get_day_of_week_on(first)}), 200
     return None
 
 
 @app.route("/history", methods =["GET", "DELETE"])
-def history():
+def history() -> dict:
     """Returns details on the last number of requests to the API"""
     global app_history
     add_to_history(request)
