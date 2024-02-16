@@ -4,7 +4,7 @@
 
 from datetime import datetime
 
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify
 
 from date_functions import convert_to_datetime, get_day_of_week_on, get_days_between
 
@@ -24,14 +24,14 @@ def add_to_history(current_request: list) -> None:
 
 
 @app.get("/")
-def index() -> Response:
+def index() -> dict:
     """Returns an API welcome message."""
     add_to_history(request)
     return jsonify({ "message": "Welcome to the Days API." })
 
 
 @app.route("/between", methods =["POST"])
-def between() -> Response:
+def between() -> dict:
     """Returns the number of days between two dates"""
     if request.method == "POST":
         add_to_history(request)
@@ -69,7 +69,7 @@ def weekday() -> dict:
 
 
 @app.route("/history", methods =["GET", "DELETE"])
-def history() -> Response:
+def history() -> dict:
     """Returns details on the last number of requests to the API"""
     global app_history
     add_to_history(request)
